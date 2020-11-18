@@ -1,0 +1,43 @@
+using System;
+using System.Globalization;
+
+namespace PhoneBookClass
+{
+    public class PhoneBook
+    {
+        private string name;
+        private string lastName;
+        private string phoneNumber;
+        private string email;
+
+
+        public PhoneBook()
+        {
+            name = "Unknown Name";
+            lastName = "Unknown Last Name";
+            phoneNumber = "Unknown Phone Number";
+            email = "Unknown e-mail";
+        }
+        public PhoneBook(string name, string lastName, string phoneNumber, string email)
+        {
+            this.name = name;
+            this.lastName = lastName;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+        }
+
+        public string NameInfo { get { return name; } set { name = value; } }
+        public string LastNameInfo { get { return lastName; } set { lastName = value; } }
+        public string PhoneNumberInfo { get { return phoneNumber; } set { phoneNumber = value; } }
+        public string EmailInfo { get { return email; } set { email = value; } }
+
+
+        public string GetAllInfo()
+        {
+            string allInfo = ($"Name: {name}\tLast Name: {lastName}\nPhone Number: {phoneNumber}\te-mail adress: {email}");
+            return allInfo;
+        }
+
+    }
+
+}

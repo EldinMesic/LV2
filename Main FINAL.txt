@@ -1,0 +1,82 @@
+using System;
+using PhoneBookClass;
+using EmailHelperClass;
+using System.Dynamic;
+using System.IO;
+using System.Runtime.CompilerServices;
+
+namespace LV2_Zadatak1 
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Unesite Broj Kontakata");
+            int contactCount = Convert.ToInt32(Console.ReadLine());
+            int i;
+
+            PhoneBook[] kontakti = new PhoneBook[contactCount];
+
+            for(i=0; i<contactCount; i++)
+            {
+                kontakti[i] = new PhoneBook();
+
+                do
+                {
+                    Console.WriteLine($"Unesite podatke {i + 1}-og kontakta");
+                    Console.WriteLine("Ime:");
+                    kontakti[i].NameInfo = Console.ReadLine();
+
+                    Console.WriteLine("Prezime:");
+                    kontakti[i].LastNameInfo = Console.ReadLine();
+
+                    Console.WriteLine("Broj Telefona:");
+                    kontakti[i].PhoneNumberInfo = Console.ReadLine();
+
+                    Console.WriteLine("E-mail:");
+                    kontakti[i].EmailInfo = Console.ReadLine();
+
+                } while (!EmailHelper.IsValid(kontakti[i].EmailInfo) );
+               
+            }
+
+            Console.WriteLine("Unesite ime datoteke u kojoj ce biti svi ferit.hr kontakti:");
+            string fileName = Console.ReadLine();
+
+            string folder = @"D:\test za file\"; PROMIJENI!
+
+            string fullPath = folder + fileName+".txt";
+
+            int IsFirst = 0;
+            for (i = 0; i < contactCount; i++)
+            {
+                while (EmailHelper.IsFerit(kontakti[i].EmailInfo))
+                {
+                    if (IsFirst == 0)
+                    {
+                        using (StreamWriter writer = new StreamWriter(fullPath))
+                        {
+                            writer.WriteLine($"Ime: {kontakti[i].NameInfo}\t");
+                            writer.WriteLine($"Prezime: {kontakti[i].LastNameInfo}\t");
+                            writer.WriteLine($"Broj Mobitela: {kontakti[i].PhoneNumberInfo}\t");
+                            writer.WriteLine($"E-mail adresa: {kontakti[i].EmailInfo}\n");
+
+                            break;
+                        }
+                    }
+                    else
+                        using (StreamWriter writer = File.AppendText(fullPath))
+                        {
+                            writer.WriteLine($"Ime: {kontakti[i].NameInfo}\t");
+                            writer.WriteLine($"Prezime: {kontakti[i].LastNameInfo}\t");
+                            writer.WriteLine($"Broj Mobitela: {kontakti[i].PhoneNumberInfo}\t");
+                            writer.WriteLine($"E-mail adresa: {kontakti[i].EmailInfo}\n");
+
+                            break;
+                        }
+                }
+                IsFirst = 1;
+            }
+        }
+    }
+}

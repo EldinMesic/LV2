@@ -1,0 +1,24 @@
+using System;
+using System.ComponentModel;
+
+namespace EmailHelperClass
+{
+    public static class EmailHelper
+    {
+        private static string feritEmail = ("ferit.hr");
+        private static string googleEmail = ("gmail.com");
+
+        public static bool IsIt;
+
+        public static bool IsValid(string CheckString)
+        {
+            return ((CheckString.Contains(feritEmail) || CheckString.Contains(googleEmail)) && CheckString.Contains('@'));
+        }
+
+        public static bool IsFerit(string CheckString)
+        {
+            IsValid(CheckString);
+            return ( (IsValid(CheckString)==true) && (CheckString.Contains(feritEmail)) );
+        }
+    }
+}
